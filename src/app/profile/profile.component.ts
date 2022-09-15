@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticationService.havingToken();
+    this.authenticationService.isUserLoggedIn();
   }
 
 }

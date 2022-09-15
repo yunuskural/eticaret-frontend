@@ -7,6 +7,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {UserManagementComponent} from "./user-management/user-management.component";
 import {ProductComponent} from "./product/product.component";
 import {OrderComponent} from "./order/order.component";
+import {ShopCardComponent} from "./order/shop-card/shop-card.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'product', component: ProductComponent},
   { path: 'order', component: OrderComponent},
   { path: 'user-management', component: UserManagementComponent},
+  { path: 'shop-card', component: ShopCardComponent},
   { path: '', redirectTo: '/login' , pathMatch: 'full'}
 ];
 

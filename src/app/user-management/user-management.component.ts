@@ -3,6 +3,8 @@ import {User} from "../_model/User";
 import {UserService} from "../_service/user.service";
 import {AuthenticationService} from "../_service/authentication.service";
 import {ToastrService} from "ngx-toastr";
+import {HttpErrorResponse} from "@angular/common/http";
+import {Role} from "../_model/Role";
 
 @Component({
   selector: 'app-user-management',
@@ -11,9 +13,11 @@ import {ToastrService} from "ngx-toastr";
 })
 export class UserManagementComponent implements OnInit {
 
-  users: User | undefined;
+  users: User[] = [];
+  roles: Role[] = [];
 
-  constructor(private userService: UserService, private authenticationService: AuthenticationService,private toastService: ToastrService ) { }
+  constructor(private userService: UserService, private authenticationService: AuthenticationService, private toastService: ToastrService) {
+  }
 
   logOut(): void {
     this.authenticationService.logOut();
@@ -25,18 +29,18 @@ export class UserManagementComponent implements OnInit {
         next: (response) => {
           console.log(response);
           this.users = response;
-          console.log('user',this.users);
-          this.toastService.success("user(s) have been successfully loaded" );
+          if (this.users != null) {
+            this.toastService.success("user(s) have been successfully loaded");
+          }
         },
-        error: (error) => {
-          console.log(error.message);
-          this.toastService.error(error.message)
+        error: (errorResponse: HttpErrorResponse) => {
+          console.log(errorResponse.error.message);
+          this.toastService.error(errorResponse.error.message)
         }
       })
   }
 
   ngOnInit(): void {
-    this.authenticationService.havingToken();
     this.getUsers()
   }
 

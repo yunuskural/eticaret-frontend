@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Product} from "../_model/Product";
 
@@ -13,7 +13,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getProducts(): Observable<Product> {
+  getProducts(): Observable<Product | HttpErrorResponse> {
     return this.httpClient.get<Product>(`${this.host}/api/product/products`)
   }
 

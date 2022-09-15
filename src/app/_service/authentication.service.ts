@@ -16,8 +16,8 @@ import {CustomHttpResponse} from "../_model/CustomHttpResponse";
 export class AuthenticationService {
 
   host = environment.apiUrl;
-  private token: string | null = '';
-  private loggedInUsername: string | undefined = '';
+  private loginResponse: LoginResponse = new LoginResponse();
+  private loggedInUsername: string | null = '';
   private jwtHelper = new JwtHelperService();
 
 
@@ -28,12 +28,12 @@ export class AuthenticationService {
     return this.http.post<LoginResponse>(`${this.host}/api/auth/authenticate`, loginRequest, {observe: 'response'})
   }
 
-  register(user: User): Observable<CustomHttpResponse | HttpErrorResponse> {
-    return this.http.post<CustomHttpResponse | HttpErrorResponse>(`${this.host}/api/user/save`, user)
+  register(user: User): Observable<User> {
+    return this.http.post<User>(`${this.host}/api/user/save`, user)
   }
 
   logOut(): void {
-    this.token = '';
+    this.loginResponse.token = '';
     this.loggedInUsername = '';
     localStorage.removeItem('user');
     localStorage.removeItem('token');
@@ -43,7 +43,7 @@ export class AuthenticationService {
   }
 
   saveToken(token: string): void {
-    this.token = token;
+    this.loginResponse.token = token;
     localStorage.setItem('token', token)
 
   }
@@ -52,38 +52,23 @@ export class AuthenticationService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  /*getUserToLocalCache(): User {
-    return JSON.parse(localStorage.getItem('user'));
-  }*/
+  getUserToLocalCache(): User {
+    return JSON.parse(JSON.stringify(localStorage.getItem('user')));
+  }
 
   loadToken(): void {
-    this.token = localStorage.getItem('token');
+    this.loginResponse.token = localStorage.getItem('token');
   }
 
   getToken(): string | null {
-    return this.token;
+    return this.loginResponse.token;
   }
 
   isUserLoggedIn(): boolean {
-    if (this.token != null && this.token != '') {
-      if (this.jwtHelper.decodeToken(this.token).sub != null || '') {
-        if (!this.jwtHelper.isTokenExpired(this.token)) {
-          this.loggedInUsername = this.jwtHelper.decodeToken(this.token).sub
-          return true;
-        }
-      }
+    if (this.loginResponse.token != null && this.loginResponse.token != '' && !this.jwtHelper.isTokenExpired(this.loginResponse.token)) {
+      return true;
     } else {
       this.logOut()
-      return false;
-    }
-    return false;
-  }
-
-  havingToken(): boolean{
-    if(this.isUserLoggedIn()){
-      return true;
-    }else {
-      this.router.navigateByUrl('/login');
       return false;
     }
   }

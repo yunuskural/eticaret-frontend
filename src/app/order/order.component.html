@@ -14,9 +14,13 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/order']" href="#">Order</a>
-        </li>  <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/profile']" href="#">Profile</a>
-      </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/profile']" href="#">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/shop-card']" href="#">Basket</a>
+        </li>
 
       </ul>
 
@@ -28,4 +32,115 @@
   </div>
 </nav>
 
-<p>order works!</p>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container bootdey">
+  <div class="row bootstrap snippets">
+    <!--  <div class="col-lg-3 col-md-3 col-sm-12">
+        &lt;!&ndash; Best Seller &ndash;&gt;
+        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
+          <div class="no-padding">
+            <span class="title">BEST SELLER</span>
+          </div>
+          <div class="thumbnail col-lg-12 col-md-12 col-sm-6 text-center">
+         &lt;!&ndash;   <a href="#" class="link-p" style="overflow: hidden; position: relative;">
+              <img src="https://via.placeholder.com/700x500/FF69B4/000000" alt="" >
+            </a>&ndash;&gt;
+            <div class="caption prod-caption">
+              <h4><a href="#">Penn State College T-Shirt</a></h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, minima!</p>
+              <p>
+              </p><div class="btn-group">
+              <a href="#" class="btn btn-default">$ 528.96</a>
+              <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Buy</a>
+            </div>
+              <p></p>
+            </div>
+          </div>
+          <div class="thumbnail col-lg-12 col-md-12 col-sm-6 visible-sm text-center">
+          &lt;!&ndash;  <a href="#" class="link-p" style="overflow: hidden; position: relative;">
+              <img src="https://via.placeholder.com/700x500/00CED1/000000">
+            </a>&ndash;&gt;
+            <div class="caption prod-caption">
+              <h4><a href="#">Ohio State College T-Shirt</a></h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, minima!</p>
+              <p>
+              </p><div class="btn-group">
+              <a href="#" class="btn btn-default">$ 924.25</a>
+              <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Buy</a>
+            </div>
+              <p></p>
+            </div>
+          </div>
+        </div>
+        &lt;!&ndash; End Best Seller &ndash;&gt;
+      </div>-->
+    <div class="clearfix visible-sm"></div>
+
+    <!-- Cart -->
+    <div class="col-lg-9 col-md-9 col-sm-12 textAlign">
+      <div class="col-lg-12 col-sm-12">
+        <span class="title">SHOPPING CART</span>
+      </div>
+      <div class="col-lg-12 col-sm-12 hero-feature">
+        <div class="table-responsive">
+          <table class="table table-bordered tbl-cart">
+            <thead>
+            <tr class="textAlign">
+              <td class="textAlign"><b> Order Number</b></td>
+              <td class="textAlign"><b> Order Date</b></td>
+              <td class="td-qty textAlign"><b> Quantity</b></td>
+              <td class="textAlign"><b> Unit Price</b></td>
+              <td class="textAlign"><b> Cargo Price</b></td>
+              <td class="textAlign"><b> Total Discount</b></td>
+              <td class="textAlign"><b> Sub Total</b></td>
+              <td class="textAlign"><b> Remove</b></td>
+            </tr>
+            </thead>
+
+            <tbody *ngFor='let appOrders of orders; let i = index' class="textAlign">
+            <tr>
+              <td>{{appOrders.orderNumber}}</td>
+              <td>{{appOrders.orderDate}}</td>
+              <td>
+                <div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button
+                  class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span><span
+                  class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span><input type="text"
+                                                                                                            name=""
+                                                                                                            value="1"
+                                                                                                            class="input-qty form-control text-center"
+                                                                                                            style="display: block;"><span
+                  class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span><span
+                  class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up"
+                                                  type="button">+</button></span></div>
+              </td>
+              <td class="price">{{appOrders.price}} $</td><!--unit price-->
+              <td>{{appOrders.cargoPrice}} $</td><!--cargoprice-->
+              <td>{{appOrders.totalDiscount}} $</td>
+              <td></td>
+              <td class="text-center">
+                <button (click)="deleteOrderById(appOrders.id)" class="remove_cart" rel="2">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+            <tr>
+              <td colspan="6" align="right">Total</td>
+              <td class="total" colspan="2"><b>$ 163.47</b>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="btn-group btns-cart">
+          <button type="button" class="btn btn-primary" [routerLink]="'/product'"><i
+            class="fa fa-arrow-circle-left"></i> Continue Shopping
+          </button>
+          <button type="button" class="btn btn-primary">Update Cart</button>
+          <button type="button" class="btn btn-primary ">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+        </div>
+
+      </div>
+    </div>
+    <!-- End Cart -->
+  </div>
+</div>

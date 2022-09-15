@@ -3,7 +3,7 @@ import {AuthenticationService} from "../../_service/authentication.service";
 import {Router} from '@angular/router';
 import {LoginRequest} from "../../_model/LoginRequest";
 import {ToastrService} from "ngx-toastr";
-import {HttpResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {LoginResponse} from "../../_model/LoginResponse";
 
 
@@ -15,6 +15,7 @@ import {LoginResponse} from "../../_model/LoginResponse";
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginRequest = new LoginRequest();
+  loginResponse: LoginResponse | null = new LoginResponse();
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private toastNotification: ToastrService) {
   }
@@ -25,23 +26,22 @@ export class LoginComponent implements OnInit, OnDestroy {
       {
         next: (response: HttpResponse<LoginResponse>) => {
           console.log(response);
-          const token = response.body?.token;
-          if (token !== null && token != '' && token != undefined) {
-            this.authenticationService.saveToken(token);
+          this.loginResponse = response.body;
+          console.log('loginresponse:', this.loginResponse)
+          if (this.loginResponse !== null && this.loginResponse.token != null && this.loginResponse.token != '') {
+            this.authenticationService.saveToken(this.loginResponse.token);
             this.router.navigateByUrl('/dashboard');
             this.toastNotification.success("Welcome. " + `${this.loginRequest.username}`);
           }
         },
-        error: (error) => {
-          this.toastNotification.error(" " + error.message);
-          console.log('burda', error.message);
+        error: (errorResponse: HttpErrorResponse) => {
+          this.toastNotification.error(" " + errorResponse.error.message);
         }
       })
   }
 
   ngOnInit(): void {
-
-    this.authenticationService.havingToken();
+    this.authenticationService.isUserLoggedIn();
   }
 
   ngOnDestroy(): void {

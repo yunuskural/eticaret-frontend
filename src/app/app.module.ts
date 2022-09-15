@@ -20,6 +20,7 @@ import {OrderService} from "./_service/order.service";
 import {ProductService} from "./_service/product.service";
 import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import {AuthenticationGuard} from "./guard/authentication.guard";
+import { ShopCardComponent } from './order/shop-card/shop-card.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {AuthenticationGuard} from "./guard/authentication.guard";
     UserManagementComponent,
     OrderComponent,
     ProductComponent,
+    ShopCardComponent,
   ],
   imports: [
     BrowserModule,

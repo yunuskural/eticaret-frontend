@@ -21,7 +21,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticationService.havingToken();
+    this.authenticationService.isUserLoggedIn();
     this.getProducts();
   }
 

@@ -1,5 +1,5 @@
 export class LoginResponse{
-  token: string = ''
+  token: string | null = ''
 
   constructor() {
     this.token= '';

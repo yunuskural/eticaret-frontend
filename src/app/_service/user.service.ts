@@ -15,8 +15,8 @@ export class UserService {
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
   }
 
-  getUsers(): Observable<User> {
-    return this.http.get<User>(`${this.host}/api/user/users`)
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.host}/api/user/users`)
   }
 
   getUserById(id: number): Observable<User> {
