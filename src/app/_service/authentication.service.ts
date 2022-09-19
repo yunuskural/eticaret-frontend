@@ -8,6 +8,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {User} from "../_model/User";
 import {LoginResponse} from "../_model/LoginResponse";
 import {CustomHttpResponse} from "../_model/CustomHttpResponse";
+import {UserService} from "./user.service";
 
 
 @Injectable({
@@ -17,7 +18,7 @@ export class AuthenticationService {
 
   host = environment.apiUrl;
   private loginResponse: LoginResponse = new LoginResponse();
-  private loggedInUsername: string | null = '';
+  private loggedInUsername: string = '';
   private jwtHelper = new JwtHelperService();
 
 
@@ -39,13 +40,15 @@ export class AuthenticationService {
     localStorage.removeItem('token');
     localStorage.removeItem('users');
     this.router.navigateByUrl("/login")
-
   }
 
   saveToken(token: string): void {
-    this.loginResponse.token = token;
-    localStorage.setItem('token', token)
-
+    if (token != null && token != '') {
+      this.loginResponse.token = token;
+      this.loggedInUsername = this.jwtHelper.decodeToken(token).sub
+      localStorage.setItem('token', this.loginResponse.token);
+      console.log(this.loggedInUsername)
+    }
   }
 
   addUserToLocalCache(user: User): void {
@@ -57,7 +60,9 @@ export class AuthenticationService {
   }
 
   loadToken(): void {
-    this.loginResponse.token = localStorage.getItem('token');
+    if (localStorage.getItem('token') != null && localStorage.getItem('token') != '') {
+      this.loginResponse.token = localStorage.getItem('token');
+    }
   }
 
   getToken(): string | null {
@@ -65,7 +70,9 @@ export class AuthenticationService {
   }
 
   isUserLoggedIn(): boolean {
-    if (this.loginResponse.token != null && this.loginResponse.token != '' && !this.jwtHelper.isTokenExpired(this.loginResponse.token)) {
+    this.loadToken();
+    if (this.loginResponse.token != null && this.loginResponse.token != ''
+      && !this.jwtHelper.isTokenExpired(this.loginResponse.token)) {
       return true;
     } else {
       this.logOut()

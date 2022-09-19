@@ -1,23 +1,18 @@
-export class User {
+import {Role} from "./Role";
+import {Order} from "./Order";
 
-  id : number | undefined;
+export interface User {
+
+  id : number;
   username : string;
   name : string;
   email : string;
   password : string;
-  lastLoginDate : Date | undefined;
-  joinDate : Date | undefined;
-  roles : [];
+  lastLoginDate : Date;
+  joinDate : Date;
+  roles : Role[];
   isActive : boolean;
   isNotLocked : boolean;
-
-  constructor() {
-    this.username = '';
-    this.name = '';
-    this.email = '';
-    this.password = '';
-    this.roles = [];
-    this.isActive = false;
-    this.isNotLocked = false;
-  }
+  address: string;
+  orders : Order[];
 }

@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: (response: HttpResponse<LoginResponse>) => {
           console.log(response);
           this.loginResponse = response.body;
-          console.log('loginresponse:', this.loginResponse)
           if (this.loginResponse !== null && this.loginResponse.token != null && this.loginResponse.token != '') {
             this.authenticationService.saveToken(this.loginResponse.token);
             this.router.navigateByUrl('/dashboard');

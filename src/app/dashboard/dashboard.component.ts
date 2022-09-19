@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
 
-  users: User = new User();
+  users: User;
 
   constructor(private userService: UserService, private authenticationService: AuthenticationService, private router: Router) {
   }
@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticationService.isUserLoggedIn();
   }
 
 }

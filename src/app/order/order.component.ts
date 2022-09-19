@@ -3,7 +3,7 @@ import {AuthenticationService} from "../_service/authentication.service";
 import {Order} from "../_model/Order";
 import {OrderService} from "../_service/order.service";
 import {ToastrService} from "ngx-toastr";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-order',
@@ -21,11 +21,12 @@ export class OrderComponent implements OnInit {
     this.authenticationService.logOut();
   }
 
+
   deleteOrderById(id: number) {
     this.orderService.deleteOrderById(id).subscribe(
       {
         next: (response) => {
-          this.toastrService.success("successfully deleted")
+          this.toastrService.success(response.message)
         },
         error: (httpError: HttpErrorResponse) => {
           console.log(httpError.error.message);

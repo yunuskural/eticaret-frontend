@@ -3,9 +3,7 @@ import {AuthenticationService} from "../../_service/authentication.service";
 import {User} from "../../_model/User";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
-import {CustomHttpResponse} from "../../_model/CustomHttpResponse";
-import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {LoginResponse} from "../../_model/LoginResponse";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-register',
@@ -14,9 +12,10 @@ import {LoginResponse} from "../../_model/LoginResponse";
 })
 export class RegisterComponent implements OnInit {
 
-  user = new User();
+  user: User;
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private notification: ToastrService) {
+
   }
 
   ngOnInit(): void {

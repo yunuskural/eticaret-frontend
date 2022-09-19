@@ -1,11 +1,9 @@
-export class Role {
+import {Authority} from "./Authority";
 
-  id: number | undefined;
+export interface Role {
+
+  id: number;
   roleName: string;
-  authorities : [];
+  authorities: Authority;
 
-  constructor() {
-    this.roleName = '';
-    this.authorities = [];
-  }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../_service/user.service";
 import {AuthenticationService} from "../_service/authentication.service";
+import {User} from "../_model/User";
 
 @Component({
   selector: 'app-profile',
@@ -9,14 +10,18 @@ import {AuthenticationService} from "../_service/authentication.service";
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private authenticationService: AuthenticationService ) { }
+  user: User;
+
+  constructor(private userService: UserService, private authenticationService: AuthenticationService) {
+  }
 
   logOut(): void {
     this.authenticationService.logOut();
   }
 
+
   ngOnInit(): void {
-    this.authenticationService.isUserLoggedIn();
+    this.user = this.authenticationService.getUserToLocalCache();
   }
 
 }

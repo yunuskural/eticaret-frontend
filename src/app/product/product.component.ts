@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../_service/user.service";
 import {AuthenticationService} from "../_service/authentication.service";
 import {ProductService} from "../_service/product.service";
+import {Product} from "../_model/Product";
 
 @Component({
   selector: 'app-product',
@@ -9,6 +10,8 @@ import {ProductService} from "../_service/product.service";
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+
+  product: Product;
 
   constructor(private userService: UserService,private productService: ProductService, private authenticationService: AuthenticationService ) { }
 

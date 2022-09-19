@@ -19,13 +19,14 @@ export class UserService {
     return this.http.get<User[]>(`${this.host}/api/user/users`)
   }
 
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.host}/api/user/{id}` )
+
+  getUserByUsername(username: string): Observable<CustomHttpResponse | HttpErrorResponse> {
+    return this.http.get<CustomHttpResponse>(`${this.host}/api/user/${username}` )
   }
 
 
-  deleteUser(id: number): Observable<CustomHttpResponse | HttpErrorResponse> {
-    return this.http.delete<CustomHttpResponse>(`${this.host}/api/user/{id}`)
+  deleteUserById(id: number): Observable<CustomHttpResponse | HttpErrorResponse> {
+    return this.http.delete<CustomHttpResponse>(`${this.host}/api/user?${id}`)
   }
 
 

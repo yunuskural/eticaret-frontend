@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
-import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Order} from "../_model/Order";
 import {CustomHttpResponse} from "../_model/CustomHttpResponse";
@@ -9,17 +9,21 @@ import {CustomHttpResponse} from "../_model/CustomHttpResponse";
   providedIn: 'root'
 })
 export class OrderService {
-  private host = environment.apiUrl;
+  private host = environment.apiUrl + '/api/order';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private http: HttpClient) {
+  }
+
+  saveOrder(order: Order, id: number): Observable<CustomHttpResponse | HttpErrorResponse> {
+    return this.http.post<CustomHttpResponse | HttpErrorResponse>(`${this.host}/save/${id}`,order)
   }
 
   getOrders(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.host}/api/order/orders`)
+    return this.http.get<Order[]>(`${this.host}/orders`)
   }
 
-  deleteOrderById(id: number): Observable<CustomHttpResponse | HttpErrorResponse>{
-    return this.httpClient.delete<CustomHttpResponse>(`${this.host}/api/order/${id}`)
+  deleteOrderById(id: number): Observable<CustomHttpResponse | HttpErrorResponse> {
+    return this.http.delete<CustomHttpResponse>(`${this.host}/${id}`)
   }
 
 }
